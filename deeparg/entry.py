@@ -31,7 +31,7 @@ def predict(args):
     else:
         args.aligner = "blastx"   
 
-    logger.info("DIAMOND {} alignment".format(args.aligner))
+     logger.info("DIAMOND {} alignment".format(args.aligner))
     cmd = " ".join(['diamond ', args.aligner,
                         '-q', args.input_file,
                         '-d', args.data_path+"/database/"+args.model_version+"/features",
@@ -39,7 +39,8 @@ def predict(args):
                         '--id', str(args.arg_alignment_identity),
                         '--sensitive',
                         '-e', str(args.arg_alignment_evalue),
-                        '-a', args.output_file+'.align'
+                        '-a', args.output_file+'.align',
+                        '--threads', args.threads
                         ])
     logger.info('Running: {}'.format(cmd))
     os.system(cmd)
@@ -117,6 +118,8 @@ def main():
                        help='Diamond, minimum number of alignments per entry [Default: 1000]')
     reads.add_argument('--model-version', default='v2',
                        help='Model deepARG version  [Default: v2]')
+    reads.add_argument('--threads', default='8',
+                       help='number of threads  [Default: 8]')
     reads.set_defaults(func=predict)
 
     # Download section
