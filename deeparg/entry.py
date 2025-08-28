@@ -31,7 +31,7 @@ def predict(args):
     else:
         args.aligner = "blastx"   
 
-     logger.info("DIAMOND {} alignment".format(args.aligner))
+    logger.info("DIAMOND {} alignment".format(args.aligner))
     cmd = " ".join(['diamond ', args.aligner,
                         '-q', args.input_file,
                         '-d', args.data_path+"/database/"+args.model_version+"/features",
